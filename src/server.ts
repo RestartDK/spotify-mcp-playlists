@@ -171,7 +171,7 @@ export function initServer(client: SpotifyMCPClient): McpServer {
 	// Update playlist items tool
 	server.tool(
 		"update-spotify-playlist",
-		"Update the tracks in a Spotify playlist",
+		"Add new tracks to a specific spotify playlist",
 		{
 			playlistId: z.string().describe("The Spotify playlist ID"),
 			uris: z
@@ -188,6 +188,41 @@ export function initServer(client: SpotifyMCPClient): McpServer {
 						{
 							type: "text",
 							text: `Successfully updated playlist. Snapshot ID: ${snapshotId}`,
+						},
+					],
+				};
+			} catch (error) {
+				return {
+					content: [
+						{
+							type: "text",
+							text: `Error: ${
+								error instanceof Error ? error.message : String(error)
+							}`,
+						},
+					],
+				};
+			}
+		}
+	);
+
+	// Create playlist tool
+	server.tool(
+		"create-spotify-playlist",
+		"Create a new Spotify playlist",
+		{
+			name: z.string().describe("Name of the playlist"),
+			description: z.string().optional().describe("Description of the playlist"),
+			isPublic: z.boolean().default(true).describe("Whether the playlist should be public")
+		},
+		async ({ name, description, isPublic }) => {
+			try {
+				const playlist = await client.createPlaylist(name, description, isPublic);
+				return {
+					content: [
+						{
+							type: "text",
+							text: JSON.stringify(playlist, null, 2),
 						},
 					],
 				};

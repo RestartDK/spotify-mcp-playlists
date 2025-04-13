@@ -1,17 +1,26 @@
 import { SpotifyApi, } from "@spotify/web-api-ts-sdk";
+import path from 'path';
+import fs from 'fs';
+import os from 'os';
 export class SpotifyMCPClient {
     client;
+    static CREDENTIALS_PATH = path.join(os.homedir(), '.spotify-mcp-credentials.json');
     constructor(clientId, clientSecret) {
         if (!clientId || !clientSecret)
             throw new Error("Please input client id or client secret");
-        // Initialize with authorization code flow for user-specific data access
-        this.client = SpotifyApi.withUserAuthorization(clientId, "http://localhost:8888/callback", [
-            "user-read-private",
-            "user-read-email",
-            "playlist-read-private",
-            "playlist-modify-public",
-            "playlist-modify-private",
-        ]);
+        // Load credentials if they exist
+        if (!fs.existsSync(SpotifyMCPClient.CREDENTIALS_PATH)) {
+            throw new Error(`No credentials found at ${SpotifyMCPClient.CREDENTIALS_PATH}. ` +
+                `Please run the auth server first and authorize.`);
+        }
+        try {
+            const credentials = JSON.parse(fs.readFileSync(SpotifyMCPClient.CREDENTIALS_PATH, 'utf-8'));
+            this.client = SpotifyApi.withAccessToken(clientId, credentials);
+        }
+        catch (error) {
+            throw new Error(`Failed to load credentials from ${SpotifyMCPClient.CREDENTIALS_PATH}: ` +
+                `${error instanceof Error ? error.message : String(error)}`);
+        }
     }
     async getCurrentUserProfile() {
         try {
@@ -69,6 +78,20 @@ export class SpotifyMCPClient {
         }
         catch (error) {
             throw new Error(`Failed to search Spotify: ${error instanceof Error ? error.message : String(error)}`);
+        }
+    }
+    async createPlaylist(name, description, isPublic = true) {
+        try {
+            const user = await this.getCurrentUserProfile();
+            const playlist = await this.client.playlists.createPlaylist(user.id, {
+                name,
+                description,
+                public: isPublic
+            });
+            return playlist;
+        }
+        catch (error) {
+            throw new Error(`Failed to create playlist: ${error instanceof Error ? error.message : String(error)}`);
         }
     }
 }

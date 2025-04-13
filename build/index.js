@@ -1,23 +1,25 @@
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { initServer } from "./server.js";
 import { SpotifyMCPClient } from "./spotify.js";
-function parseArgs() {
-    const args = process.argv.slice(2);
-    const config = {};
-    for (let i = 0; i < args.length; i += 2) {
-        if (args[i].startsWith("--")) {
-            const key = args[i].slice(2).replace(/-/g, "_").toUpperCase();
-            config[key] = args[i + 1];
-        }
-    }
-    return config;
-}
 async function main() {
     try {
-        // Parse command line arguments and set them as environment variables
-        const config = parseArgs();
-        // Initialise spotify client
-        const spotifyClient = new SpotifyMCPClient(config.CLIENT_ID, config.CLIENT_SECRET);
+        // Parse command line arguments
+        const args = process.argv.slice(2);
+        let clientId;
+        let clientSecret;
+        for (let i = 0; i < args.length; i++) {
+            if (args[i] === '--client-id' && i + 1 < args.length) {
+                clientId = args[i + 1];
+            }
+            if (args[i] === '--client-secret' && i + 1 < args.length) {
+                clientSecret = args[i + 1];
+            }
+        }
+        if (!clientId || !clientSecret) {
+            throw new Error("Missing --client-id or --client-secret arguments");
+        }
+        // Initialize spotify client
+        const spotifyClient = new SpotifyMCPClient(clientId, clientSecret);
         // Initialize and start MCP server
         const server = initServer(spotifyClient);
         const transport = new StdioServerTransport();

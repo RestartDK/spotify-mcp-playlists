@@ -16,9 +16,16 @@
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.9.0",
     "@spotify/web-api-ts-sdk": "^1.2.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "open": "^10.1.0",
     "zod": "^3.24.2"
   },
   "devDependencies": {
+    "@types/cookie-parser": "^1.4.8",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.1",
     "@types/node": "^22.14.0",
     "typescript": "^5.8.3"
   }

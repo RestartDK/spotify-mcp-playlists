@@ -6,6 +6,18 @@
 
 A [Model Context Protocol (MCP)](https://github.com/gnehs/modelcontextprotocol) server for interacting with Spotify playlists. This server allows AI assistants to manage your Spotify playlists through the MCP standard.
 
+## The Problem & Solution
+
+### Before ❌
+- Think about songs → Open Spotify → Search each song individually → Navigate interfaces → Add tracks one by one → Repeat dozens of times
+- Time-consuming process with constant context switching
+- Easy to forget great song ideas while searching
+
+### After ✅
+- Describe playlist to AI → AI searches and creates playlist instantly on spotify
+- Single conversation instead of multiple manual steps
+- 10+ minutes ⏱️ → Just seconds ⚡
+
 ## Features
 
 - 🎵 Get user profile information
@@ -38,7 +50,7 @@ Or use it directly with npx without installing:
 npx spotify-mcp-auth --client-id YOUR_CLIENT_ID --client-secret YOUR_CLIENT_SECRET
 
 # MCP Server
-npx spotify-mcp-playlist --client-id YOUR_CLIENT_ID --client-secret YOUR_CLIENT_SECRET 
+npx spotify-mcp-playlist --client-id YOUR_CLIENT_ID --client-secret YOUR_CLIENT_SECRET
 ```
 
 ### From Source
@@ -68,7 +80,9 @@ npx spotify-mcp-playlist --client-id YOUR_CLIENT_ID --client-secret YOUR_CLIENT_
 3. Fill in the application details:
    - **App name**: Choose a name (e.g., "MCP Playlist Manager")
    - **App description**: Brief description of your app
+   - **Website**: You can use `http://localhost` for personal use
    - **Redirect URI**: Add `http://127.0.0.1:8888/callback`
+   - Accept the terms and conditions
 
 4. After creating the app, you'll be taken to your app's dashboard.
 
@@ -78,32 +92,21 @@ npx spotify-mcp-playlist --client-id YOUR_CLIENT_ID --client-secret YOUR_CLIENT_
 
 7. Keep these credentials secure and don't share them publicly.
 
-8. In the app settings, make sure the Redirect URI is properly set to `http://127.0.0.1:8888/callback`.
-
 ## Authentication
 
 Before using the MCP server, you need to authenticate with Spotify:
 
-1. Run the authentication server:
-   
-   If installed globally:
-   ```bash
-   spotify-mcp-auth --client-id YOUR_CLIENT_ID --client-secret YOUR_CLIENT_SECRET
-   ```
-   
-   With npx:
-   ```bash
-   npx spotify-mcp-auth --client-id YOUR_CLIENT_ID --client-secret YOUR_CLIENT_SECRET
-   ```
-   
-   From source:
-   ```bash
-   node build/auth.js --client-id YOUR_CLIENT_ID --client-secret YOUR_CLIENT_SECRET
-   ```
+```bash
+# Run the authentication 
+spotify-mcp-playlist auth --client-id YOUR_CLIENT_ID --client-secret YOUR_CLIENT_SECRET
+```
 
-2. Your browser will open automatically. Log in to Spotify and authorize the application.
+Or with npx:
+```bash
+npx spotify-mcp-playlist auth --client-id YOUR_CLIENT_ID --client-secret YOUR_CLIENT_SECRET
+```
 
-3. After successful authorization, your credentials will be saved to `~/.spotify-mcp-credentials.json`.
+Your browser will open automatically. Log in to Spotify and authorize the application. After successful authorization, your credentials will be saved to `~/.spotify-mcp-credentials.json`.
 
 ## Usage
 
@@ -111,17 +114,12 @@ Before using the MCP server, you need to authenticate with Spotify:
 
 If installed globally:
 ```bash
-spotify-mcp-playlist --client-id YOUR_CLIENT_ID --client-secret YOUR_CLIENT_SECRET --stdio
+spotify-mcp-playlist --client-id YOUR_CLIENT_ID --client-secret YOUR_CLIENT_SECRET
 ```
 
 With npx:
 ```bash
-npx spotify-mcp-playlist --client-id YOUR_CLIENT_ID --client-secret YOUR_CLIENT_SECRET --stdio
-```
-
-From source:
-```bash
-node build/index.js --client-id YOUR_CLIENT_ID --client-secret YOUR_CLIENT_SECRET --stdio
+npx spotify-mcp-playlist --client-id YOUR_CLIENT_ID --client-secret YOUR_CLIENT_SECRET
 ```
 
 ### Integrating with Cursor IDE
@@ -136,7 +134,7 @@ Add the following to your Cursor MCP configuration (`~/.cursor/mcp.json`):
     "--client-id",
     "YOUR_CLIENT_ID",
     "--client-secret",
-    "YOUR_CLIENT_SECRET",
+    "YOUR_CLIENT_SECRET"
   ]
 }
 ```
@@ -150,7 +148,7 @@ Alternatively, if you've installed the package globally:
     "--client-id",
     "YOUR_CLIENT_ID",
     "--client-secret",
-    "YOUR_CLIENT_SECRET",
+    "YOUR_CLIENT_SECRET"
   ]
 }
 ```

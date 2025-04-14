@@ -12,6 +12,6 @@ export default defineConfig({
   clean: true,
   dts: true,
   shims: true,
-  noExternal: ['@modelcontextprotocol/sdk'],
+  noExternal: ['@modelcontextprotocol/sdk', '@spotify/web-api-ts-sdk'],
   minify: true
 }); 

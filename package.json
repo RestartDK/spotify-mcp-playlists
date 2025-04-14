@@ -1,7 +1,7 @@
 {
   "name": "spotify-mcp-playlist",
   "type": "module",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A Model Context Protocol (MCP) server for Spotify playlists integration",
   "main": "build/index.js",
   "bin": {

@@ -1,7 +1,7 @@
 import { defineConfig } from 'tsup';
 
 export default defineConfig({
-  entry: ['src/index.ts', 'src/bin-auth.ts'],
+  entry: ['src/index.ts'],
   format: ['esm'],
   target: 'esnext',
   outDir: 'dist',

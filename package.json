@@ -5,8 +5,7 @@
   "description": "A Model Context Protocol (MCP) server for Spotify playlists integration",
   "main": "dist/index.js",
   "bin": {
-    "spotify-mcp-playlist": "dist/index.js",
-    "spotify-mcp-auth": "dist/bin-auth.js"
+    "spotify-mcp-playlist": "dist/index.js"
   },
   "scripts": {
     "build": "tsup",

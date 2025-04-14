@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { initServer } from "./server.js";
 import { SpotifyMCPClient } from "./spotify.js";

@@ -2,17 +2,36 @@
   "name": "spotify-mcp-playlist",
   "type": "module",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "A Model Context Protocol (MCP) server for Spotify playlists integration",
+  "main": "build/index.js",
+  "bin": {
+    "spotify-mcp-playlist": "build/index.js",
+    "spotify-mcp-auth": "build/bin-auth.js"
+  },
   "scripts": {
-    "build": "tsc && chmod 755 build/index.js"
+    "build": "tsc && chmod 755 build/index.js",
+    "prepublishOnly": "npm run build"
   },
   "files": [
     "build"
   ],
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "spotify",
+    "mcp",
+    "playlist",
+    "music",
+    "ai",
+    "assistant",
+    "model",
+    "context",
+    "protocol"
+  ],
+  "author": "Daniel Kumlin",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RestartDK/spotify-mcp-playlists"
+  },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.9.0",
     "@spotify/web-api-ts-sdk": "^1.2.0",

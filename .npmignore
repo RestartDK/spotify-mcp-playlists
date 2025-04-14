@@ -1,0 +1,25 @@
+src/
+tsconfig.json
+.git
+.gitignore
+node_modules/account if you don't have one: `npm adduser`
+2. Login to npm: `npm login`
+3. Test your package locally: `npm link` and then `spotify-mcp-playlist --help`
+4. When ready, publish: `npm publish`
+
+## Will this work with your current setup?
+
+Your current setup is close, but not quite ready for npm publishing because:
+
+1. Missing the shebang line in index.ts
+2. No bin field in package.json
+3. No separate entry for the auth server
+4. Limited package.json metadata (keywords, description, repository)
+
+With the changes above, your app will work correctly with npx, allowing users to run either:
+- `npx spotify-mcp-auth` for authentication 
+- `npx spotify-mcp-playlist` for the MCP server
+
+This approach gives a better user experience and clearer separation between authentication and the server.
+
+Would you like me to implement any of these changes for you?

@@ -1,7 +1,7 @@
 # Spotify MCP Playlist
 
 <p align="center">
-  <img src="https://storage.googleapis.com/pr-newsroom-wp/1/2018/11/Spotify_Logo_RGB_Green.png" width="250" alt="Spotify Logo">
+  <img src="https://github.com/user-attachments/assets/5a3e15d9-80ec-4bc5-8a1b-20c9b827b767" width="250" alt="Spotify Logo">
 </p>
 
 A [Model Context Protocol (MCP)](https://github.com/gnehs/modelcontextprotocol) server for interacting with Spotify playlists. This server allows AI assistants to manage your Spotify playlists through the MCP standard.

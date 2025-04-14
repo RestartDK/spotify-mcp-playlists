@@ -12,4 +12,6 @@ export default defineConfig({
   clean: true,
   dts: true,
   shims: true,
+  noExternal: ['@modelcontextprotocol/sdk'],
+  minify: true
 }); 
